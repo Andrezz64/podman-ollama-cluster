@@ -1,6 +1,6 @@
 <div align="center">
 
-# Podman App Cluster
+# Podman AI Cluster
 
 **A lightweight, scalable AI inference cluster built entirely on pure Podman + Systemd.**
 
