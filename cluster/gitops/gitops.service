@@ -1,0 +1,6 @@
+[Unit]
+Description=Sincroniza o repo GitOps do Cluster Podman
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/podman-app-cluster/cluster/gitops/gitops-sync.sh

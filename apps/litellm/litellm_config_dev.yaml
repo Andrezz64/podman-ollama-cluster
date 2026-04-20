@@ -1,0 +1,16 @@
+model_list:
+  - model_name: llama3
+    litellm_params:
+      model: ollama/llama3
+      # No docker-compose (dev), resolve pelo nome do container
+      api_base: "http://ollama:11434"
+  - model_name: mistral
+    litellm_params:
+      model: ollama/mistral
+      api_base: "http://ollama:11434"
+
+router_settings:
+  routing_strategy: usage-based-routing-v2
+
+general_settings:
+  master_key: sk-1234

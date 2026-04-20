@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: litellm-pod
+  labels:
+    app: litellm
+    # Traefik configuration
+    traefik.enable: "true"
+    traefik.http.routers.litellm.rule: "Host(`api.localhost`)"
+    traefik.http.services.litellm.loadbalancer.server.port: "4000"
+spec:
+  containers:
+  - name: litellm
+    image: ghcr.io/berriai/litellm:main-latest
+    ports:
+    - containerPort: 4000
+      hostPort: 4000
+    command: ["litellm", "--config", "/app/config.yaml"]
+    volumeMounts:
+    - mountPath: /app/config.yaml
+      name: litellm-config
+      readOnly: true
+  volumes:
+  - name: litellm-config
+    hostPath:
+      path: /opt/podman-app-cluster/apps/litellm/litellm_config.yaml
+      type: FileOrCreate

@@ -1,0 +1,15 @@
+[Unit]
+Description=Gateway LiteLLM
+After=ollama@1.service
+
+[Kube]
+Yaml=/opt/podman-app-cluster/apps/litellm/deployment.yml
+AutoUpdate=registry
+Network=host
+PublishPort=4000
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

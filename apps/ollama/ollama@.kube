@@ -1,0 +1,16 @@
+[Unit]
+Description=Ollama AI Node %i
+
+[Kube]
+Yaml=/opt/podman-app-cluster/apps/ollama/deployment.yml
+AutoUpdate=registry
+Network=host
+PublishPort=11434
+
+[Service]
+Restart=always
+# Ajusta o tempo de inicialização caso o modelo esteja carregando
+TimeoutStartSec=120
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Rodar o sincronizador GitOps a cada 1 minuto
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ollama-node
+  labels:
+    app: ollama
+spec:
+  containers:
+  - name: ollama
+    image: docker.io/ollama/ollama:latest
+    # Executa o servidor em background, baixa o modelo (llama3) e espera o processo principal
+    command: ["/bin/sh"]
+    args: ["-c", "ollama serve & sleep 3 && ollama pull llama3 && wait $!"]
+    ports:
+    - containerPort: 11434
+      hostPort: 11434
+    volumeMounts:
+    - mountPath: /root/.ollama
+      name: ollama-models
+    # Se testar GPUs no Linux via podman:
+    # resources:
+    #   limits:
+    #     nvidia.com/gpu: 1
+    # env:
+    # - name: NVIDIA_VISIBLE_DEVICES
+    #   value: all
+  volumes:
+  - name: ollama-models
+    hostPath:
+      path: /var/lib/containers/storage/volumes/ollama_data/_data
+      type: DirectoryOrCreate

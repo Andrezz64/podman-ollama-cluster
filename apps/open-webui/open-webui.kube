@@ -1,0 +1,15 @@
+[Unit]
+Description=Open-WebUI Frontend
+After=litellm.service
+
+[Kube]
+Yaml=/opt/podman-app-cluster/apps/open-webui/deployment.yml
+AutoUpdate=registry
+Network=host
+PublishPort=3000
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

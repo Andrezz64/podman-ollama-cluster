@@ -1,0 +1,9 @@
+[Unit]
+Description=Rodar autoscaler a cada minuto
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+
+[Install]
+WantedBy=timers.target

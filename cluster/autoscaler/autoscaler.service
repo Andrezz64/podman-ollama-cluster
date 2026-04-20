@@ -1,0 +1,6 @@
+[Unit]
+Description=Auto-Scaler Customizado do Podman
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/podman-app-cluster/cluster/autoscaler/autoscaler.sh

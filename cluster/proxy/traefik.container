@@ -1,0 +1,16 @@
+[Container]
+Image=docker.io/library/traefik:v3.0
+Network=host
+# O traefik acessará o podman socket localmente
+Volume=/run/podman/podman.sock:/var/run/docker.sock:ro
+# Habilitando o dashboard e a config do provedor docker/podman
+Exec=--api.insecure=true --providers.docker=true --providers.docker.exposedbydefault=false --entryPoints.web.address=:80
+# Sempre reiniciar em falhas
+Restart=always
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

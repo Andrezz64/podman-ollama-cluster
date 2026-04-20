@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: open-webui-pod
+  labels:
+    app: open-webui
+    traefik.enable: "true"
+    traefik.http.routers.webui.rule: "Host(`chat.localhost`)"
+    traefik.http.services.webui.loadbalancer.server.port: "8080"
+spec:
+  containers:
+  - name: open-webui
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+    - containerPort: 8080
+      hostPort: 3000
+    env:
+    # Desativa Ollama local nativo do webui pois usaremos via LiteLLM
+    - name: ENABLE_OLLAMA_API
+      value: "false"
+    - name: OPENAI_API_BASE_URL
+      value: "http://host.containers.internal:4000/v1"
+    - name: OPENAI_API_KEY
+      value: "sk-1234" # Chave do LiteLLM
+    volumeMounts:
+    - mountPath: /app/backend/data
+      name: webui-data
+  volumes:
+  - name: webui-data
+    hostPath:
+      path: /var/lib/containers/storage/volumes/openwebui_data/_data
+      type: DirectoryOrCreate
